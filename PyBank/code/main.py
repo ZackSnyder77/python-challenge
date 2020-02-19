@@ -1,11 +1,13 @@
 import os
 import csv
 
-print("HI")
+months = 0
+total = 0
 
 csvpath = os.path.join('..', 'Resources', 'budget_data.csv')
 
 with open(csvpath, newline='') as csvfile:
+
 
     # CSV reader specifies delimiter and variable that holds contents
     csvreader = csv.reader(csvfile, delimiter=',')
@@ -18,4 +20,9 @@ with open(csvpath, newline='') as csvfile:
 
     # Read each row of data after the header
     for row in csvreader:
-        print(row)
+
+        months = months + 1
+        total = total + int(row[1])
+
+    print(f"Total Months: {months}")
+    print(f"Total: ${total}")
