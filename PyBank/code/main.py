@@ -3,7 +3,7 @@ import csv
 
 months = 0
 total = 0
-deltas = []
+revenues = []
 runningdeltas = []
 averagedeltas = 0
 
@@ -19,22 +19,24 @@ with open(csvpath, newline='') as csvfile:
     
     # Read the header row first (skip this step if there is now header)
     csv_header = next(csvreader)
-    print(f"CSV Header: {csv_header}")
+#    print(f"CSV Header: {csv_header}")
 
     # Read each row of data after the header
     #place the revenues in a string to calc average later
     for row in csvreader:
-        deltas.append(int(row[1]))
+        revenues.append(int(row[1]))
         months = months + 1
         total = total + int(row[1])
+
     
     #calculates the deltas from the second month to the last
     #then calculates the average of all the deltas
-    for i in range(len(deltas)):
+
+    for i in range(len(revenues)):
         if i >0:
             # print(deltas[i]-deltas[i-1])
-            runningdeltas.append(deltas[i]-deltas[i-1])
-            averagedeltas = sum(runningdeltas) / (len(deltas)-1)
+            runningdeltas.append(revenues[i]-revenues[i-1])
+            averagedeltas = sum(runningdeltas) / (len(revenues)-1)
 
     # print(f"Sum: {sum(runningdeltas)}")
 
@@ -42,3 +44,7 @@ with open(csvpath, newline='') as csvfile:
     print(f"Total Months: {months}")
     print(f"Total: ${total}")
     print(f"Average Change: ${round(averagedeltas,2)}")
+
+
+
+    
