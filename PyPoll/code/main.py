@@ -7,6 +7,7 @@ vote_percentage = 0
 vote_counts = []
 candidates = []
 winner = []
+winner_percentage = 0
 
 csvpath = os.path.join('..', 'Resources', 'election_data.csv')
 output_path = os.path.join('..', 'Resources', 'output.txt')
@@ -37,7 +38,13 @@ with open(csvpath, newline='') as csvfile:
 
     #counts the votes for each candidate
     for candidate in candidates:
-        vote_percentage = format((vote_counts.count(candidate)/votes)*100,'.3f')
+        vote_percentage = float(format((vote_counts.count(candidate)/votes)*100,'.3f'))
         print(f"{candidate}: {vote_percentage}% ({vote_counts.count(candidate)})")
 
+        if vote_percentage > winner_percentage:
+            winner_percentage = vote_percentage
+            winner = candidate
+
+    print("-------------------------")
+    print(f"Winner: {winner}")
     print("-------------------------")
