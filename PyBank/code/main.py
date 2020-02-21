@@ -13,6 +13,7 @@ runningdeltas = []
 averagedeltas = 0
 
 csvpath = os.path.join('..', 'Resources', 'budget_data.csv')
+output_path = os.path.join('..', 'Resources', 'output.txt')
 
 with open(csvpath, newline='') as csvfile:
 
@@ -62,6 +63,10 @@ with open(csvpath, newline='') as csvfile:
     print(f"Increase in Profits: {maxdeltamonth} (${maxdelta})")
     print(f"Decrease in Profits: {mindeltamonth} (${mindelta})")
 
-
-
-    
+with open(output_path, 'w') as txtfile:
+    txtfile.write(f"Total Months: {monthscount}\n")
+    txtfile.write(f"Total: ${total}\n")
+    txtfile.write(f"Average Change: ${round(averagedeltas,2)}\n")
+    txtfile.write(f"Increase in Profits: {maxdeltamonth} (${maxdelta})\n")
+    txtfile.write(f"Decrease in Profits: {mindeltamonth} (${mindelta})\n")
+    txtfile.close()
