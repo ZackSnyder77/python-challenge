@@ -1,6 +1,10 @@
 import os
 import csv
 
+votes = 0
+candidatevotes = {}
+vote_counts = []
+candidates = []
 
 csvpath = os.path.join('..', 'Resources', 'election_data.csv')
 output_path = os.path.join('..', 'Resources', 'output.txt')
@@ -17,4 +21,13 @@ with open(csvpath, newline='') as csvfile:
     csv_header = next(csvreader)
     print(f"CSV Header: {csv_header}")
 
+    for row in csvreader:
+        votes = votes + 1
+        vote_counts.append(row[2])
+        if row[2] not in candidates:
+            candidates.append(row[2])
     
+    for candidate in candidates:
+        print(f"{candidate}: ({vote_counts.count(candidate)})")
+
+    # print(F"Total Votes: {votes}")
