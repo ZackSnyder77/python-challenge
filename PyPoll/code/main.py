@@ -21,13 +21,20 @@ with open(csvpath, newline='') as csvfile:
     csv_header = next(csvreader)
     print(f"CSV Header: {csv_header}")
 
+
     for row in csvreader:
         votes = votes + 1
         vote_counts.append(row[2])
         if row[2] not in candidates:
             candidates.append(row[2])
     
+    print("Election Results")
+    print("-------------------------")
+    print(F"Total Votes: {votes}") 
+    print("-------------------------")  
+
+    #counts the votes for each candidate
     for candidate in candidates:
         print(f"{candidate}: ({vote_counts.count(candidate)})")
 
-    # print(F"Total Votes: {votes}")
+    print("-------------------------")
