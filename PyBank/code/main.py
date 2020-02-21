@@ -6,6 +6,8 @@ months = []
 total = 0
 maxdelta = 0
 maxdeltamonth = []
+mindelta = 0
+mindeltamonth = []
 revenues = []
 runningdeltas = []
 averagedeltas = 0
@@ -25,7 +27,8 @@ with open(csvpath, newline='') as csvfile:
 #    print(f"CSV Header: {csv_header}")
 
     # Read each row of data after the header
-    #place the revenues in a string to calc average later
+    #place the revenues in a list to calc average delta later
+    #place the months in a list to help find the month with the largets and smallest deltas
     for row in csvreader:
         revenues.append(int(row[1]))
         months.append(row[0])
@@ -41,20 +44,23 @@ with open(csvpath, newline='') as csvfile:
             runningdeltas.append(revenues[i]-revenues[i-1])
             averagedeltas = sum(runningdeltas) / (len(revenues)-1)
     
+    #computes what the max MoM delta is as well as assigns the 'maxdeltamonth' to equal that month
+    #computes what the min MoM delta is as well as assigns the 'mindeltamonth' to equal that month
     for i in range(len(runningdeltas)):
         if int(runningdeltas[i]) > maxdelta:
             maxdelta = int(runningdeltas[i])
             maxdeltamonth = months[i+1]
+        if int(runningdeltas[i]) < mindelta:
+            mindelta = int(runningdeltas[i])
+            mindeltamonth = months[i+1]
 
-    
-    # print(maxdelta)
-    # print(maxdeltamonth)
-    # print(months)
-    
-    # print(f"Total Months: {monthscount}")
-    # print(f"Total: ${total}")
-    # # print(f"Average Change: ${round(averagedeltas,2)}")
-    # print(f"Increase in Profits: {maxdeltamonth} (${maxdelta})")
+
+    # print statements to print out the key summary stats requested
+    print(f"Total Months: {monthscount}")
+    print(f"Total: ${total}")
+    print(f"Average Change: ${round(averagedeltas,2)}")
+    print(f"Increase in Profits: {maxdeltamonth} (${maxdelta})")
+    print(f"Decrease in Profits: {mindeltamonth} (${mindelta})")
 
 
 
